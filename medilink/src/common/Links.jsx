@@ -2,6 +2,8 @@ import React from "react";
 import BuyPage from "../pages/BuyPage";
 import SellPage from "../pages/SellPage";
 import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPAge";
+import RegisterPage from "../pages/RegistorPage";
 
 export const Links = [
     {
@@ -16,10 +18,22 @@ export const Links = [
         element: <BuyPage />,
         showInNavigation: true,
     },
-     {
+    {
         name: "Sell",
         path: "/sell",
         element: <SellPage />,
+        showInNavigation: true,
+    },
+    {
+        name: "Login",
+        path: "/login",
+        element: <LoginPage />,
+        showInNavigation: true,
+    },
+    {
+        name: "Register",
+        path: "/register",
+        element: <RegisterPage />,
         showInNavigation: true,
     },
 

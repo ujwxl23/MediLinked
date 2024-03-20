@@ -29,7 +29,6 @@ function SellPage() {
   const storage = getStorage(app);
 
 
-
   const [formData, setFormData] = useState({
     productName: '',
     description: '',
@@ -228,5 +227,4 @@ function SellPage() {
     </div>
   )
 }
-
 export default SellPage
