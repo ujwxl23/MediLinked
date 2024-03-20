@@ -3,6 +3,9 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { format } from 'date-fns';
 import { getAuth , onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, child, push, get } from 'firebase/database';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const ProductTable = () => {
   const [search, setSearch] = useState('');
@@ -70,22 +73,18 @@ const ProductTable = () => {
     push(productsRef, newProduct);
     setProducts([...products, newProduct]);
     handleClose();
+    toast.success('Product added successfully');
   };
 
   const getDaysLeft = (expiryDate) => {
 
-    if (!expiryDate || isNaN(expiryDate)) {
-        return 'N/A'; // or any default value you prefer
-    }
+    const expiryDateObj = new Date(expiryDate);
 
     const currentDate = new Date();
-    const diffInMs = expiryDate - currentDate;
+    const diffInMs = expiryDateObj.getTime() - currentDate.getTime();
     const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    if (diffInDays <= 0) {
-      return 0;
-    }
-    return diffInDays;
-  };
+    return Math.max(0, diffInDays); // Ensure days left is not negative
+    };
 
   // Filter products based on search input
   const filteredProducts = products.filter(product =>

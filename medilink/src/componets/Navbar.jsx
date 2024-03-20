@@ -2,6 +2,7 @@ import React from 'react'
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import { Link, useNavigate } from "react-router-dom";
+import Typography from '@mui/material/Typography';
 
 function Navbar() {
 
@@ -20,12 +21,9 @@ function Navbar() {
         borderBottomRightRadius: "10px", // Adjust the values to your preference
         padding: "10px", // Add padding for better appearance
       }}>
-        <h1>MediLink</h1>
-        {/* <ConnectWallet dropdownPosition={{
-                side: "right",
-                align: "start",
-              }} switchToActiveChain={true}/>
-               */}
+        <Typography variant="h3" underline="always" fontWeight="bold">
+          MediLink
+        </Typography>
 
         <button
             style={{
