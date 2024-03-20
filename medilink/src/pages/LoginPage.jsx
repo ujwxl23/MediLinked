@@ -7,6 +7,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
+import { ToastContainer, toast } from 'react-toastify';
+
 const firebaseConfig = {
   apiKey: "AIzaSyAK6jGldivi_kEIzwoADcEPaPOheluRp0g",
   authDomain: "revivetech-59b40.firebaseapp.com",
@@ -31,9 +33,11 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // Redirect to dashboard or any other page after login
-      navigate('/');
+      navigate('/table');
+      toast.success('Login successful!');
     } catch (error) {
       console.error('Error logging in:', error.message);
+       toast.error('Error logging in.'+ error.message);
     }
   };
 
@@ -96,6 +100,7 @@ const LoginPage = () => {
           </Box>
         </div>
       </Container>
+      <ToastContainer />
     </Box>
   );
 };

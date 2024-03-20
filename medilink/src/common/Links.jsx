@@ -4,6 +4,7 @@ import SellPage from "../pages/SellPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPAge";
 import RegisterPage from "../pages/RegistorPage";
+import ProductTable from "../pages/AdminPage";
 
 export const Links = [
     {
@@ -34,6 +35,12 @@ export const Links = [
         name: "Register",
         path: "/register",
         element: <RegisterPage />,
+        showInNavigation: true,
+    },
+    {
+        name: "AdminTable",
+        path: "/table",
+        element: <ProductTable />,
         showInNavigation: true,
     },
 

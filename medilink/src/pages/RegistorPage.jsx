@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Typography, TextField, Button, Box, Container } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const firebaseConfig = {
@@ -30,10 +31,12 @@ const RegisterPage = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log('User created:', user);
+      toast.success('Registration successful!');
       // Redirect to dashboard or any other page after signup
-      navigate('/');
+      navigate('/table');
     } catch (error) {
       console.error('Error signing up:', error.message);
+      toast.error('Error registoring in.'+ error.message);
     }
   };
 
@@ -96,6 +99,7 @@ const RegisterPage = () => {
           </Box>
         </div>
       </Container>
+       <ToastContainer />
     </Box>
   );
 };
