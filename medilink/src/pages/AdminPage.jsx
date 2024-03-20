@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { format } from 'date-fns';
 import { getAuth , onAuthStateChanged } from 'firebase/auth';
-import { getDatabase, ref, child, push } from 'firebase/database';
-
-// Sample data
-// let products = [
-//   { productName: 'Product A', batchNumber: '12345', manufactureDate: new Date(2024, 11, 15), expiryDate: new Date(2024, 3, 24) },
-//   { productName: 'Product B', batchNumber: '67890', manufactureDate: new Date(2023, 5, 19), expiryDate: new Date(2024, 5, 20) },
-//   { productName: 'Product C', batchNumber: '54321', manufactureDate: new Date(2023, 2, 5), expiryDate: new Date(2024, 2, 5) },
-// ];
+import { getDatabase, ref, child, push, get } from 'firebase/database';
 
 const ProductTable = () => {
   const [search, setSearch] = useState('');
@@ -26,28 +19,30 @@ const ProductTable = () => {
 
   useEffect(() => {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
 
       if (user) {
-        // User is logged in, fetch data using user.uid
         const userId = user.uid;
         const db = getDatabase();
         const productsRef = ref(db, `products/${userId}`);
 
-        const fetchProducts = async () => {
-          const snapshot = await child(productsRef).get();
+        try {
+          const snapshot = await get(productsRef);
           if (snapshot.exists()) {
-            console.log(napshot.val());
-            setProducts(snapshot.val());
+            const productsData = snapshot.val();
+            const productsArray = Object.values(productsData);
+            setProducts(productsArray);
           } else {
             console.log('No data available');
+            setProducts([]);
           }
-        };
-
-        fetchProducts();
+        } catch (error) {
+          console.error('Error fetching products:', error);
+          setProducts([]);
+        }
       }
-    }); // Remove listener on unmount (consider using useCallback for auth)
+    });
   }, []);
 
 
@@ -78,6 +73,11 @@ const ProductTable = () => {
   };
 
   const getDaysLeft = (expiryDate) => {
+
+    if (!expiryDate || isNaN(expiryDate)) {
+        return 'N/A'; // or any default value you prefer
+    }
+
     const currentDate = new Date();
     const diffInMs = expiryDate - currentDate;
     const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));

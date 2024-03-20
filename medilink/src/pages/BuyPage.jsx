@@ -52,37 +52,6 @@ function BuyPage() {
   gap: '16px',
   };
 
-  //  const handleBuy = async (price) => {
-  //   try {
-  //     setLoading(true);
-
-  //     const recipientAddress = '0xCB511d1366cDED23FE9FBBd8FA0D9b6160BC55AC';
-  //     const contract = new ethers.Contract(contractAddress, contractABI, signer);
-  //     const priceInWei = ethers.utils.parseEther(price);
-
-  //     const approveTx = await contract.approve(signer.getAddress(), priceInWei);
-  //     await approveTx.wait();
-
-  //     // Call transferFrom function
-  //     const transaction = await contract.transferFrom(
-  //       signer.getAddress(),
-  //       recipientAddress,
-  //       priceInWei
-  //     );
-
-  //     // Wait for the transaction to be mined
-  //     await transaction.wait();
-
-  //     console.log(`Tokens transferred successfully to ${recipientAddress}`);
-  //     toast.success('Transaction completed successfully');
-  //   } catch (error) {
-  //     console.error('Error transferring tokens:', error);
-  //   }
-  //   finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   
   return (
      <div> 
