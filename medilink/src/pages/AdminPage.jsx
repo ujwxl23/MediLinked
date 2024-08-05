@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, Link as MuiLink } from '@mui/material';
 import { format } from 'date-fns';
 import { getAuth , onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, child, push, get } from 'firebase/database';
@@ -179,6 +179,11 @@ const ProductTable = () => {
           <Button onClick={handleAddProduct} color="primary">Add</Button>
         </DialogActions>
       </Dialog>
+      <br/>
+      <br/>
+      <MuiLink href="https://kepler.gl/demo/map?mapUrl=https://dl.dropboxusercontent.com/scl/fi/lbbdrbqmlozb7dn8b7dmv/keplergl_aebyaz.json?rlkey=3kctg4ypo8sownvivajg5dqjp&dl=0">
+  View: GeoLocation of medicine coverage
+</MuiLink>
     </Box>
   );
 };

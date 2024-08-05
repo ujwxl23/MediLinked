@@ -94,7 +94,7 @@ function HomePage() {
                 the medicine production process.            
             </Typography>  */}
             <Typography variant="h2" align="center" color="white" my={3} > 
-                GET ALL MEDICINES IN 50% OFF 
+                GET MEDICINES IN UPTO 50% OFF 
             </Typography> 
             <Typography variant="h6" align="center" color="white"  > 
                 Made by Team "Aloo Bhujia" 
