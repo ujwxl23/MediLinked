@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import { Typography, TextField, Button, Box, Container } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
-
+import React, { useState } from "react";
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import { Typography, TextField, Button, Box, Container } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { ToastContainer, toast } from "react-toastify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAK6jGldivi_kEIzwoADcEPaPOheluRp0g",
@@ -21,32 +22,42 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const RegisterPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    const handleSignup = async (e) => {
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    position: "absolute",
+    alignContent: "center",
+  });
+
+  const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
-      console.log('User created:', user);
-      toast.success('Registration successful!');
+      console.log("User created:", user);
+      toast.success("Registration successful!");
       // Redirect to dashboard or any other page after signup
-      navigate('/table');
+      navigate("/table");
     } catch (error) {
-      console.error('Error signing up:', error.message);
-      toast.error('Error registoring in.'+ error.message);
+      console.error("Error signing up:", error.message);
+      toast.error("Error registoring in." + error.message);
     }
   };
 
   return (
-     <Box
+    <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
         boxShadow: 5,
         padding: 2,
       }}
@@ -79,13 +90,29 @@ const RegisterPage = () => {
               type="password"
               id="password"
               autoComplete="new-password"
+              sx={{ marginBottom: "10px" }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload files
+              <VisuallyHiddenInput
+                type="file"
+                onChange={(event) => console.log(event.target.files)}
+                multiple
+              />
+            </Button>
+            <Button
               type="submit"
               fullWidth
+              sx={{ marginTop: "25px" }}
               variant="contained"
               color="primary"
             >
@@ -99,9 +126,9 @@ const RegisterPage = () => {
           </Box>
         </div>
       </Container>
-       <ToastContainer />
+      <ToastContainer />
     </Box>
   );
 };
 
-export default RegisterPage
+export default RegisterPage;

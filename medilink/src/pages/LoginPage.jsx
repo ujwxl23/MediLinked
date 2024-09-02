@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box'
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useState } from "react";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import { ToastContainer, toast } from "react-toastify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAK6jGldivi_kEIzwoADcEPaPOheluRp0g",
@@ -24,30 +24,30 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const LoginPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // Redirect to dashboard or any other page after login
-      navigate('/table');
-      toast.success('Login successful!');
+      navigate("/table");
+      toast.success("Login successful!");
     } catch (error) {
-      console.error('Error logging in:', error.message);
-       toast.error('Error logging in.'+ error.message);
+      console.error("Error logging in:", error.message);
+      toast.error("Error logging in." + error.message);
     }
   };
 
-   return (
-     <Box
+  return (
+    <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
         boxShadow: 5,
         padding: 2,
       }}
@@ -84,12 +84,7 @@ const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button type="submit" fullWidth variant="contained" color="primary">
               Login
             </Button>
           </form>
@@ -98,10 +93,15 @@ const LoginPage = () => {
               Don't have an account? <Link to="/register">Sign Up</Link>
             </Typography>
           </Box>
+          <Box mt={2}>
+            <Typography variant="body1">
+              Forgot Password? <Link to="/forgot">Forgot</Link>
+            </Typography>
+          </Box>
         </div>
       </Container>
       <ToastContainer />
     </Box>
   );
 };
-export default LoginPage
+export default LoginPage;
